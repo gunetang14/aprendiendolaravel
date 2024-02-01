@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
@@ -42,4 +43,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    //mutador para un input llamado name
+    protected function name():Attribute {
+
+        return new Attribute(
+            get: function($value){
+                return ucwords($value);
+            },
+            // funcion flecha o arrow function get: fn($value) => ucwords($value), 
+
+            set: function($value){
+                return strtolower($value);
+            }
+        );
+    }
+    // antes los accesores se usaban asi
+    // public function getNameAttribute($value){
+        // return ucwords($value);
+    //}
+
+    // antes los mutadores se usaban asi
+    // public function setNameAttribute($value){
+        // $this->attributes['name'] = strtolower($value);
+    //}
 }
