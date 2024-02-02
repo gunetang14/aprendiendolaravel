@@ -1,7 +1,13 @@
 @extends('layout.template')
 
-@section('title', 'Curso ' . $curso)
+@section('title', 'Curso ' . $curso->name)
 
 @section('content')
-    <h1>Bienvenido al curso: {{ $curso }} </h1>
+    <h1>Bienvenido al curso: {{ $curso->name }} </h1>
+    <a href="{{ route('cursos.index') }}">Volver a Cursos</a>
+    <br>
+    <a href="{{ route('cursos.edit', $curso) }}">Editar Curso</a>
+    <p><strong>Categoria: </strong>{{$curso->categoria}}</p>
+    <p>{{$curso->descripcion}}</p>
+    
 @endsection
