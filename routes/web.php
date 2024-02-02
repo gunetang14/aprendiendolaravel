@@ -19,21 +19,27 @@ Route::get('/', HomeController::class );
 /* Route::get('/', 'HomeController'); para laravel 7
  */
 
-Route::get('Cursos', [CursoController::class, 'index']);
+Route::get('Cursos', [CursoController::class, 'index'])->name('cursos.index');
 /* Route::get('Cursos', 'CursoController@index'); para Laravel 7
  */
 
-Route::get('Cursos/create', [CursoController::class, 'create']);
+Route::get('Cursos/create', [CursoController::class, 'create'])->name('cursos.create');
 
 //1 parametro en la funcion
-Route::get('Cursos/{curso}', [CursoController::class, 'show']);
+Route::get('Cursos/{curso}', [CursoController::class, 'show'])->name('cursos.show');
+
+Route::post('Cursos', [CursoController::class, 'store'])->name('cursos.store');
+
+Route::get('Cursos/{curso}/edit', [CursoController::class, 'edit'])->name('cursos.edit');
+
+Route::put('Cursos/{curso}', [CursoController::class, 'update'])->name('cursos.update');
 
 //GRUPOS DE RUTAS
-Route::controller(CursoController::class)->group(function(){
-    Route::get('Cursos', 'index');
-    Route::get('Cursos/create', 'create');
-    Route::get('Cursos/{curso}', 'show');
-});
+// Route::controller(CursoController::class)->group(function(){
+//     Route::get('Cursos', 'index');
+//     Route::get('Cursos/create', 'create');
+//     Route::get('Cursos/{curso}', 'show');
+// });
 
 // 2 parametros
 /* Route::get('cursos/{cursos}/{categoria}', function ($curso, $categoria){
