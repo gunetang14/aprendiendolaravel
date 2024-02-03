@@ -27,4 +27,17 @@ class StoreCurso extends FormRequest
             'categoria' => 'required'
         ];
     }
+    public function messages(): array{
+
+        return [
+            'descripcion.required' => 'La descripcion es obligatoria'
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'name' => 'nombre del curso'
+        ];
+    }
 }

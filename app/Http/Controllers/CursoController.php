@@ -24,11 +24,21 @@ class CursoController extends Controller
             'categoria' => 'required'
         ]); */
 
-        $curso = new Curso();
+       /*  $curso = new Curso();
         $curso->name = $request->name;
         $curso->descripcion = $request->descripcion;
         $curso->categoria = $request->categoria;
-        $curso->save();
+        $curso->save(); */
+
+        //asignacion massiva
+        /* $curso = Curso::created([ // create, crea y guarda al tiempo
+            'name' => $request->name,
+            'descripcion' => $request->descripcion,
+            'categoria' => $request->categoria
+        ]); */
+
+        //mejor manera
+        $curso = Curso::create($request->all());
         return redirect()->route('cursos.show', $curso); // aqui se puede colocar $curso->id pero ya laravel entiende que debe mostar el actual
     }
     public function show(Curso $curso){
@@ -41,16 +51,14 @@ class CursoController extends Controller
         return view('cursos.edit', compact('curso'));
 
     }
-    public function update(Request $request, Curso $curso){
-        $request->validate([
-            'name' => 'required|min:3',
-            'descripcion' => 'required',
-            'categoria' => 'required'
-        ]);
-        $curso->name = $request->name;
+    public function update(StoreCurso $request, Curso $curso){
+        
+        /* $curso->name = $request->name;
         $curso->descripcion = $request->descripcion;
         $curso->categoria = $request->categoria;
-        $curso->save();
+        $curso->save(); */
+        // con asignacion masiva
+        $curso->update($request->all());
         return redirect()->route('cursos.show', $curso);
     }
 }
