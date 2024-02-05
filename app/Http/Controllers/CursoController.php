@@ -51,14 +51,25 @@ class CursoController extends Controller
         return view('cursos.edit', compact('curso'));
 
     }
-    public function update(StoreCurso $request, Curso $curso){
+    public function update(Request $request, Curso $curso){
         
         /* $curso->name = $request->name;
         $curso->descripcion = $request->descripcion;
         $curso->categoria = $request->categoria;
         $curso->save(); */
         // con asignacion masiva
+        $request->validate([
+                'name' => 'required|min:3',
+                'slug' => 'required|unique:cursos,slug,' . $curso->id,
+                'descripcion' => 'required',
+                'categoria' => 'required'
+        ]);
         $curso->update($request->all());
         return redirect()->route('cursos.show', $curso);
+    }
+
+    public function destroy(Curso $curso) {
+        $curso->delete();
+        return redirect()->route('cursos.index');
     }
 }
